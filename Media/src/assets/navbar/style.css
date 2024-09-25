@@ -1,0 +1,159 @@
+
+.navbar {
+    background-color: #004fe2;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    max-height: 1.8pc;
+}
+
+.navbar-logo a {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 49px;
+    text-decoration: none;
+    position: relative;
+    /* left: 100%; */
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-links li a {
+    color: white;
+    padding: 8px 16px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.navbar-links li a:hover {
+    background-color: #575757;
+    border-radius: 4px;
+}
+
+/* Content area */
+.content {
+    padding: 20px;
+    text-align: center;
+}
+
+.footer {
+    background-color: #2d4272;
+    box-shadow: #575757;
+    padding: 2px 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    max-height: 2pc;
+    /* border: 5px solid black; */
+}
+
+.footer-logo a {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+}
+
+.footer-links li a {
+    color: white;
+    padding: 4px 8px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.footer-links li a:hover {
+    background-color: #575757;
+    border-radius: 4px;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #f8f1f1;
+    color: rgb(20, 18, 18);
+    padding-top: 20px;
+    transform: translateX(-100%);
+    opacity: 0.5;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Menampilkan sidebar ketika terbuka */
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    text-align: left;
+}
+
+.sidebar ul li a {
+    color: rgb(20, 18, 18);
+    text-decoration: none;
+    display: block;
+    padding: 10px 20px;
+}
+
+.sidebar ul li a:hover {
+    padding: 10px 20px;
+    background-color: #575757;
+}
+
+/* Tombol toggle untuk membuka sidebar */
+.sidebar-toggle {
+    position: fixed;
+    top: 0px;
+    left: 1px;
+    z-index: 1000;
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.sidebar-toggle:hover {
+    background-color: transparent;
+}
+.sidebar-toggle-image{
+    max-width: 20px;
+    max-height: 20px;
+}
+
+/* Styling untuk layout yang lebih besar (desktop) */
+@media screen and (min-width: 768px) {
+    .sidebar {
+        transform: translateX(0); /* Sidebar tetap terbuka di layar besar */
+    }
+
+    .sidebar-toggle {
+        display: none; /* Tombol toggle disembunyikan di layar besar */
+    }
+}
