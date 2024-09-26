@@ -7,6 +7,7 @@ import Dashboard from './page/dashboard/dashboard';
 import Profile from './page/account/account';
 import AddQ from './page/account/addQ';
 import Testing from './page/profile/profile';
+import Result from './page/result/result';
 
 const App = () => {
 
@@ -20,7 +21,7 @@ const App = () => {
         <Route path='/login' element={<SignIn />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/add-question' element={<AddQ />} />
-        <Route path='/result/:soal' element={<Dashboard />} />
+        <Route path='/result/:soal' element={<Result />} />
       </Routes>
     </Router>
 

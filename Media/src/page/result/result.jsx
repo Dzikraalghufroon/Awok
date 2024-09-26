@@ -1,117 +1,82 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../assets/navbar/navbar";
 import Sidebar from "../../assets/navbar/sidebar";
+import './style.css';
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import './style.css'
-import styles from './style.module.css'
-import image from './image.png'
+import { useParams } from "react-router-dom";
+
 const Result = () => {
-    const [question, setquestion] = useState(null);
-    const [data, setdata] = useState(null);
+    const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const { soal } = useParams();
 
+    // Redirect logic
     useEffect(() => {
-        const fetchredirect = async () => {
+        const fetchRedirect = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/validation/checked.php`, { withCredentials: true })
+                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/validation/checked.php`, { withCredentials: true });
                 if (response.data.status !== 1) {
-                    // console.log(response.data.status)
-                    navigate('/login')
+                    navigate('/login');
                 }
             } catch (error) {
-                console.error('Error Cok:', error);
+                console.error('Error:', error);
             }
         };
-        fetchredirect();
-    }, []);
+        fetchRedirect();
+    }, [navigate]);
 
-
+    // Fetch data logic
     useEffect(() => {
-        const fetchredata = async () => {
+        const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/dashboard/question.php`, { withCredentials: true });
-                if (response.data) {
-                    setdata(response.data);
-                }
+                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/forum/read_forum.php?question=${soal}`, { withCredentials: true });
+                setData(response.data);
+                setLoading(false);
             } catch (error) {
                 console.error('Error Cok:', error);
-            } finally {
-                setLoading(false); // Selesai fetching
+                setLoading(false);
             }
         };
-        fetchredata();
-    }, []);
-
-    const upload = async () => {
-        try {
-            const response = await axios.post(`${import.meta.env.VITE_SERVER}/api/dashboard/upload.php`, { question }, { withCredentials: true });
-            navigate('/')
-            if (response.data) {
-
-            } else {
-                console.log(response)
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    const Logout = async () => {
-        try {
-            const response = await axios.post(`${import.meta.env.VITE_SERVER}/api/logout.php`, { withCredentials: true });
-            navigate('/')
-            if (response.data) {
-
-            } else {
-                console.log(response)
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
+        fetchData();
+    }, [soal]);
 
     return (
         <div className="center">
             <Navbar />
             <Sidebar />
-            <div className={styles.container}>
-                <div className={styles.Profile}>
-                    <img src={image} alt="" className={styles.image} />
-                    <button onClick={Logout}>logout</button>
+            <div className="result">
+                {/* Tampilkan pertanyaan di bagian atas */}
+                <div>
+                    
+                        {data.length > 0 && (
+                            <ul className="dataQuestion">
+                            <p>{data[0].name}</p>
+                            <p>{data[0].date}</p>
+                            <p>{data[0].question}</p>
+                            </ul>
+                        )}
+                    
                 </div>
-                <form className={styles.question_form} onSubmit={upload}>
-                    <input
-                        className={styles.inputquestion}
-                        type="text"
-                        id="name"
-                        value={styles.question}
-                        onChange={(e) => setquestion(e.target.value)}
-                        required
-                    />
-                    <button className={styles.buttonquestion} type="submit">add question</button>
-                </form>
-            </div>
-            <div className={styles.questionUser}>
-                {loading ? (
-                    <p>Loading...</p> // Tampilkan saat masih loading
-                ) : data && data.length > 0 ? (
-                    data.map((data, index) => (
+
+                {/* Tampilkan data lainnya kecuali item.question */}
+                {data.length > 0 ? (
+                    data.map((item, index) => (
                         <ul key={index}>
-                            <li>{data.name}</li>
-                            <li>{data.reg_date}</li>
-                            <li>{data.soal}</li>
-                            <li>&nbsp;</li>
-                            <li>&nbsp;</li>
+                            <li>{item.username}</li>
+                            <li>{item.reg_date}</li>
+                            <li>{item.result}</li>
                         </ul>
                     ))
                 ) : (
-                    <p>No data available</p>
+                    !loading && <p>No data available</p>
                 )}
-            </div>
 
+                {loading && <p>Loading...</p>}
+            </div>
         </div>
-    )
-}
-export default Result
+    );
+};
+
+export default Result;

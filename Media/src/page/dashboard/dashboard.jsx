@@ -61,8 +61,8 @@ const Dashboard = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [hasMore]);
 
-    const handleUpload = (id_soal, question, answer) => {
-        setCurrentEdit({ id_soal, question, answer });
+    const handleUpload = (id_soal, question,name ,date,answer) => {
+        setCurrentEdit({ id_soal, question, name ,date,answer });
     };
 
     const handlePost = async (e) => {
@@ -118,7 +118,7 @@ const Dashboard = () => {
                                 <li>
                                     <button
                                         type="button"
-                                        onClick={() => handleUpload(item.id, item.soal, item.name)}
+                                        onClick={() => handleUpload(item.id, item.soal,item.name, item.reg_date)}
                                     >
                                         Comment
                                     </button>

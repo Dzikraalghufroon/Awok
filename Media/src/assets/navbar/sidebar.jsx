@@ -3,6 +3,9 @@ import './style.css';
 import image from './image.png'
 import image1 from './image2.png'
 import { useNavigate } from 'react-router-dom';
+import Satu from "./home1.png"
+import Dua from "./profile.png"
+
 const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
@@ -22,8 +25,8 @@ const Sidebar = () => {
             {/* Sidebar */}
             <div className={`sidebar ${isOpen ? 'open' : ''}`}>
                 <ul>
-                    <li><a onClick={() => navigate("/")}>Home</a></li>
-                    <li><a onClick={() => navigate("/profile")}>Profile</a></li>
+                    <li><a onClick={() => navigate("/")}><img src={Satu} alt="" />Home</a></li>
+                    <li><a onClick={() => navigate("/profile")}><img src={Dua} alt="" />Profile</a></li>
                     <li><a onClick={() => navigate("/")}>Services</a></li>
                     <li><a onClick={() => navigate("/")}>Contact</a></li>
                 </ul>

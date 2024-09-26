@@ -117,15 +117,27 @@
 }
 
 .sidebar ul li {
-    padding: 15px;
+    padding: 20px;
     text-align: left;
 }
+.sidebar ul li a img{
+    position: relative;
+    top: 5px;
+    left: -5px;
+    max-width: 24px;
+    max-height: 24px;
+    margin-right: 10px;
+}
+
 
 .sidebar ul li a {
     color: rgb(20, 18, 18);
     text-decoration: none;
     display: block;
     padding: 10px 20px;
+    position: relative;
+    left: -20px;
+    font-size: 20px;
 }
 
 .sidebar ul li a:hover {

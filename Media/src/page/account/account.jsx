@@ -122,7 +122,7 @@ const Profile = () => {
                             <li>{item.reg_date}</li>
                             
                             <li>{item.soal}</li>
-                            <li><a className={styles.a} onClick={() => navigate(`/result/${item.soal}`)}>See answer</a></li>
+                            <li><a className={styles.a} onClick={() => navigate(`/result/${item.id}`)}>See answer</a></li>
                             <li>
                                 <div className={styles.dropdownContainer}>
                                     
