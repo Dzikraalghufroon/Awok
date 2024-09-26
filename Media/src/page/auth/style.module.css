@@ -1,4 +1,4 @@
-.container {
+.container_login {
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
@@ -87,7 +87,9 @@
 }
 
 .button {
-    width: 100%;
+    width: 90%;
+    position: relative;
+    left: 5%;
     padding: 10px;
     background-color: #007bff;
     color: white;
@@ -108,3 +110,11 @@
     font-size: 14px;
     margin-top: 10px;
 }
+@media screen and (max-width: 768px) {
+    .container_login{
+        position: relative;
+        top: 20px;
+        width: 80%;
+    }
+}
+

@@ -22,10 +22,10 @@ const Sidebar = () => {
             {/* Sidebar */}
             <div className={`sidebar ${isOpen ? 'open' : ''}`}>
                 <ul>
-                    <li><a href="#home">Home</a></li>
+                    <li><a onClick={() => navigate("/")}>Home</a></li>
                     <li><a onClick={() => navigate("/profile")}>Profile</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a onClick={() => navigate("/")}>Services</a></li>
+                    <li><a onClick={() => navigate("/")}>Contact</a></li>
                 </ul>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './style.css'
+import styles from './style.module.css'
 
 const SignUp = () => {
     const [nama, setNama] = useState('');
@@ -49,26 +49,26 @@ const SignUp = () => {
 
 
     return (
-        <div className='container'>
+        <div className={styles.container_login}>
             <div>
                 {/* <div className='imageContainer'>
                     <img src="" alt="Login Illustration" className='loginImage' />
                 </div> */}
-                <form className='form' onSubmit={handleSignIn}>
-                    <h2 className='title'>Sign In </h2>
-                    <label className='label' htmlFor="name">Name:</label>
+                <form className={styles.form} onSubmit={handleSignIn}>
+                    <h2 className={styles.title}>Sign In </h2>
+                    <label className={styles.label} htmlFor="name">Name:</label>
                     <input
-                        className='input'
+                        className={styles.input}
                         type="text"
                         id="name"
                         value={nama}
                         onChange={(e) => setNama(e.target.value)}
                         required
                     />
-                    <label className='label' htmlFor="pass">Password:</label>
-                    <div className='passwordWrapper'>
+                    <label className={styles.label} htmlFor="pass">Password:</label>
+                    <div className={styles.passwordWrapper}>
                         <input
-                            className='input'
+                            className={styles.input}
                             type={showPassword ? 'text' : 'password'}
                             id="pass"
                             value={pass}
@@ -77,15 +77,15 @@ const SignUp = () => {
                         />
                         <button
                             type="button"
-                            className='hide'
+                            className={styles.hide}
                             onClick={() => setShowPassword(!showPassword)}
                         >
                             {showPassword ? 'Hide' : 'Show'}
                         </button>
                     </div>
-                    <label className='label' htmlFor="gender">Gender: </label>
+                    <label className={styles.label} htmlFor="gender">Gender: </label>
                     <select
-                        className='option'
+                        className={styles.option}
                         id="gender"
                         value={gender}
                         onChange={(e) => setgender(e.target.value)}
@@ -95,12 +95,12 @@ const SignUp = () => {
                         <option value="female">female</option>
                         <option value="don't want to mention">don't want to mention</option>
                     </select>
-                    <button className='button' type="submit">Sign In</button>
+                    <button className={styles.button} type="submit">Sign In</button>
                     {message && (
-                        <p className='message'>{message}</p>
+                        <p className={styles.message}>{message}</p>
                     )}
                 </form><br /><br />
-                <a className='a' onClick={() => navigate("/login")}>login</a>
+                <a className={styles.a} onClick={() => navigate("/login")}>login</a>
             </div>
         </div>
     );

@@ -3,3 +3,64 @@
     place-items: center; /* Memusatkan secara horizontal dan vertikal */
     height: 100vh;
 }
+.result{
+    margin-top: 5pc;
+    width: 50%;
+}
+.result ul{
+    margin: 20px;
+    background-color: aliceblue;
+    list-style-type: none;
+    border-radius: 12px;
+    padding: 20px;
+}
+.result ul li:nth-child(1){
+    color: rgb(114, 105, 105); 
+}
+.result ul li:nth-child(2){
+    margin-top: 5px;
+    color: rgb(85, 75, 75);
+    margin-bottom: 10px;
+}
+.result ul li:nth-child(3){
+    margin-top: 5px;
+    color: rgb(0, 0, 0);
+    margin-bottom: 10px;
+    font-size: 17px;
+}
+.result ul li form input {
+    width: 50%; /* Lebar input */
+    margin-top: 10px; /* Jarak atas */
+    padding: 5px; /* Ruang dalam untuk input */
+    border: 1px solid #ccc; /* Border abu-abu */
+    border-radius: 4px; /* Sudut melengkung */
+    font-size: 16px; /* Ukuran font */
+    transition: border-color 0.3s; /* Transisi saat fokus */
+}
+
+.result ul li form input:focus {
+    border-color: #007bff; /* Border biru saat fokus */
+    outline: none; /* Menghilangkan outline default */
+}
+
+.result ul li form button {
+    padding: 5px 15px; /* Ruang dalam untuk tombol */
+    margin-top: 10px; /* Jarak atas */
+    background-color: #007bff; /* Warna latar belakang biru */
+    color: white; /* Warna teks putih */
+    border: none; /* Menghilangkan border default */
+    border-radius: 4px; /* Sudut melengkung */
+    cursor: pointer; /* Pointer saat hover */
+    font-size: 16px; /* Ukuran font */
+    transition: background-color 0.3s; /* Transisi saat hover */
+}
+
+.result ul li form button:hover {
+    background-color: #0056b3; /* Warna lebih gelap saat hover */
+}
+
+@media screen and (max-width: 768px){
+    .result{
+        width: 100%;
+    }
+}

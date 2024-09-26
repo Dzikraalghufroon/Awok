@@ -1,5 +1,6 @@
 import React from "react";
 import './style.css'
+import Logo from './feax-.png';
 
 const Navbar = () => {
     return (
@@ -8,7 +9,7 @@ const Navbar = () => {
                 <a href="#">&nbsp;</a>
             </div>
             <div className="navbar-logo">
-                <a href="#">Ujang</a>
+                <a href="#"><img src={Logo} alt=""/>Feax</a>
             </div>
             {/* <ul className="navbar-links">
                 <li><a href="#home">Home</a></li>
