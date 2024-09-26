@@ -201,6 +201,8 @@
         width: 87%;
         transform: translateY(-100%);
         background-color: #dddddd;
+        height: 150%;
+        top: 70px;
     }
 
     .sidebar.active {
@@ -234,5 +236,13 @@
         width: 80%;
     }
 }
+@media screen and (min-width: 768px) {
+    .questionUser{
+        /* width: 80%; */
+        top: 5%;
+    }
+}
+
+
 
 

@@ -2,7 +2,7 @@
 include_once "../../koneksi.php";
 
 // include_once "./validation.php";
-$sql = "SELECT soal,name, reg_date FROM question ORDER BY RAND();";
+$sql = "SELECT id, soal,name, reg_date FROM question ORDER BY RAND();";
 $result = $conn->query($sql);
 
 $users = [];

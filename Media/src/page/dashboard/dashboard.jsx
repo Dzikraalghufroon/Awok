@@ -8,13 +8,12 @@ import axios from "axios";
 
 const Dashboard = () => {
     const navigate = useNavigate();
-    const [data, setData] = useState([]); 
+    const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [page, setPage] = useState(1); 
-    const [hasMore, setHasMore] = useState(true); 
+    const [page, setPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
     const [answer, setAnswer] = useState('');
-    const [idSoal, setIdSoal] = useState(null); // State untuk id_soal
-    const [question, setQuestion] = useState(''); // State untuk question
+    const [currentEdit, setCurrentEdit] = useState({ id_soal: -1, question: '', answer: '' });
 
     // Redirect logic
     useEffect(() => {
@@ -36,50 +35,57 @@ const Dashboard = () => {
         try {
             const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/dashboard/result.php?page=${page}`);
             if (response.data && response.data.length > 0) {
-                setData(prevData => [...prevData, ...response.data]); // Gabungkan data lama dengan data baru
+                setData(prevData => [...prevData, ...response.data]);
             } else {
-                setHasMore(false); // Tidak ada data lagi
+                setHasMore(false);
             }
         } catch (error) {
             console.log("Error fetching data: ", error);
         } finally {
-            setLoading(false); // Selesai fetching
+            setLoading(false);
         }
     };
 
-    // Initial data fetch
     useEffect(() => {
         fetchData(page);
-    }, [page]); // Akan dipanggil setiap kali halaman berubah
+    }, [page]);
 
-    // Infinite Scroll - Deteksi scroll ke bawah
     const handleScroll = () => {
         if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight && hasMore) {
-            setPage(prevPage => prevPage + 1); // Muat halaman berikutnya saat mencapai bawah
+            setPage(prevPage => prevPage + 1);
         }
     };
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll); // Cleanup event listener
+        return () => window.removeEventListener('scroll', handleScroll);
     }, [hasMore]);
 
-    const upload = async (answer, id_soal, question) => {
+    const handleUpload = (id_soal, question, answer) => {
+        setCurrentEdit({ id_soal, question, answer });
+    };
+
+    const handlePost = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${import.meta.env.VITE_SERVER}/api/dashboard/forum.php`, { id_soal, question, answer }, { withCredentials: true });
-            console.log('Response from server:', response.data); // Tambahkan log ini
+            const response = await axios.post(`${import.meta.env.VITE_SERVER}/api/dashboard/forum.php`, currentEdit, { withCredentials: true });
             if (response.data.status === 'success') {
-                console.log('Data submitted successfully');
-                navigate('/ok'); // Navigasi setelah sukses
+                console.log('Data successfully updated');
+                setData(prevData =>
+                    prevData.map(item =>
+                        item.id === currentEdit.id_soal
+                            ? { ...item, answer: currentEdit.answer }
+                            : item
+                    )
+                );
+                setCurrentEdit({ id_soal: -1, question: '', answer: '' });
             } else {
-                console.error('Submission failed:', response.data.message);
+                console.error('Error updating data:', response.data.message);
             }
         } catch (error) {
-            console.error('Error cok:', error);
+            console.error('Error updating data:', error);
         }
     };
-    
 
     return (
         <div className="center">
@@ -88,24 +94,37 @@ const Dashboard = () => {
             <div className="result">
                 {data && data.length > 0 ? (
                     data.map((item, index) => (
-                        <ul key={index}>
-                            <li>{item.name}</li>
-                            <li>{item.reg_date}</li>
-                            <li>{item.soal}</li>
-                            <li><a onClick={() => navigate(`/result/${item.soal}`)}>see answer</a></li>
-                            <li>
-                                <form onSubmit={(e) => upload(e, item.id_soal, item.soal)}> {/* Ganti dengan ID soal dan soal yang sesuai */}
-                                    <input 
-                                        placeholder="Enter your answer"
+                        currentEdit.id_soal === item.id ? (
+                            <ul key={item.id}>
+                                <li>{item.name}</li>
+                                <li>{item.reg_date}</li>
+                                <li>{item.soal}</li>
+                                <li>
+                                    <input
                                         type="text"
-                                        value={answer}
-                                        onChange={(answer) => setAnswer(answer.target.value)}
-                                        required
+                                        // value={currentEdit.answer}
+                                        onChange={(e) => setCurrentEdit({ ...currentEdit, answer: e.target.value })}
                                     />
-                                    <button type="submit">Add</button>
-                                </form>
-                            </li>
-                        </ul>
+                                </li>
+                                <li>
+                                    <button type="submit" onClick={(e) => handlePost(e)}>Post</button>
+                                </li>
+                            </ul>
+                        ) : (
+                            <ul key={item.id}>
+                                <li>{item.name}</li>
+                                <li>{item.reg_date}</li>
+                                <li>{item.soal}</li>
+                                <li>
+                                    <button
+                                        type="button"
+                                        onClick={() => handleUpload(item.id, item.soal, item.name)}
+                                    >
+                                        Comment
+                                    </button>
+                                </li>
+                            </ul>
+                        )
                     ))
                 ) : (
                     !loading && <p>No data available</p>

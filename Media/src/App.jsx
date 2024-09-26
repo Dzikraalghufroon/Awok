@@ -6,6 +6,7 @@ import SignUp from './page/auth/sign';
 import Dashboard from './page/dashboard/dashboard';
 import Profile from './page/account/account';
 import AddQ from './page/account/addQ';
+import Testing from './page/profile/profile';
 
 const App = () => {
 
@@ -14,6 +15,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path='/' element={<Dashboard />} />
+        <Route path='/test' element={<Testing />} />
         <Route path='/sign' element={<SignUp />} />
         <Route path='/login' element={<SignIn />} />
         <Route path='/profile' element={<Profile />} />
