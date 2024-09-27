@@ -4,10 +4,11 @@ include_once '../../koneksi.php';
 
 session_start();
 $name = $_SESSION['user_name'];
-$stmt = $conn->prepare("SELECT id, name, soal,reg_date FROM question WHERE name = ?");
+$id_user = $_SESSION['user_id'];
+$stmt = $conn->prepare("SELECT id, name, soal,reg_date FROM question WHERE id_user = ?");
 
 // Bind parameter nama ke query
-$stmt->bind_param("s", $name);
+$stmt->bind_param("i", $id_user);
 $stmt->execute();
 $result = $stmt->get_result();
 

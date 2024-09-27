@@ -30,6 +30,7 @@ const Sidebar = () => {
                     <li><a onClick={() => navigate("/profile")}><img src={Dua} alt="" />Profile</a></li>
                     <li><a onClick={() => navigate("/")}><img src={Tiga} />Search</a></li>
                     <li><a onClick={() => navigate("/")}><img src={Empat} />Setting</a></li>
+                    <li><a onClick={() => navigate(-1)}>Back</a></li>
                 </ul>
             </div>
         </div>

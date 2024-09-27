@@ -25,6 +25,8 @@ const PopupForm = ({ isOpen, onClose, onSubmit }) => {
           &times;
         </button>
         <form onSubmit={handleSubmit}>
+          <p>Your name in the post will not change
+          Are you sure?</p>
           <label>
             Nama:
             <input
@@ -34,9 +36,9 @@ const PopupForm = ({ isOpen, onClose, onSubmit }) => {
               onChange={handleChange}
               required
             />
-          </label>
+          </label><br />
           <label>
-            Pass:
+            Pass : 
             <input
               type="text"
               name="pass"
@@ -44,7 +46,7 @@ const PopupForm = ({ isOpen, onClose, onSubmit }) => {
               onChange={handleChange}
               required
             />
-          </label>
+          </label><br />
           <button type="submit">Submit</button>
         </form>
       </div>

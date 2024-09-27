@@ -9,9 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 
         if (isset($_SESSION['user_name'])) {
             $name = $_SESSION['user_name'];
+            $id_user = $_SESSION['user_id'];
 
-            $stmt = $conn->prepare("DELETE FROM `question` WHERE id = ? AND name = ?");
-            $stmt->bind_param("is", $id, $name);
+            $stmt = $conn->prepare("DELETE FROM `question` WHERE id = ? AND id_user = ?");
+            $stmt->bind_param("ii", $id, $id_user);
 
             if ($stmt->execute()) {
                 echo json_encode(['status' => 'success', 'message' => 'Data deleted successfully']);

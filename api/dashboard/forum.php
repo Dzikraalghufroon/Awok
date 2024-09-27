@@ -18,16 +18,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $Answer = $data['answer'];
     $name = $data['name'];
     $date = $data['date'];
+    $id_user = $_SESSION['user_id'];
 
     // Memasukkan data baru ke dalam tabel users
-    $stmt = $conn->prepare("INSERT INTO forum (id_soal, question , result, username, name, date) VALUES (?, ?, ?, ?, ?,?)");
+    $stmt = $conn->prepare("INSERT INTO forum (id_soal, question , result, username, name, date,id_user) VALUES (?, ?, ?, ?, ?,?,?)");
     if ($stmt === false) {
         echo json_encode(['status' => 'error', 'message' => 'Prepare statement failed: ' . $conn->error]);
         exit;
     }
 
     // Bind parameter untuk query
-    $stmt->bind_param("isssss", $id_soal, $question,$Answer, $nama, $name, $date);
+    $stmt->bind_param("isssssi", $id_soal, $question,$Answer, $nama, $name, $date, $id_user);
 
     // Eksekusi query
     if ($stmt->execute()) {

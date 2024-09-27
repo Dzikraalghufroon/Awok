@@ -14,18 +14,48 @@
 
 .popupContent {
   background-color: white;
-  padding: 20px;
+  padding:  60px;
   border-radius: 5px;
+  height: 40%;
   width: 300px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
-
+.popupContent form input{
+  padding: 10px;
+  margin: 5px;
+  position: relative;
+  top: 0px;
+}
+.popupContent form label{
+  position: relative;
+  top: -40px;
+}
+.popupContent form button{
+  padding: 20px 40px;
+  border: none;
+  background-color: rgb(0, 105, 241);
+  position: relative;
+  margin-top: 0px;
+  color: aliceblue;
+  border-radius: 8px;
+  right: -60%;
+}
+.popupContent form button:hover{
+  background-color: rgb(0, 147, 206);
+}
+.popupContent form p{
+  color: black;
+  font-size: 22px;
+  position: relative;
+  top: -40px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 .closeButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  position: relative;
+  top: -70px;
+  left: 105%;
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 50px;
   cursor: pointer;
 }

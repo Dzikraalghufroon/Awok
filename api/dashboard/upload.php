@@ -14,16 +14,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Mengambil data dari array JSON
     $nama = $_SESSION['user_name'];
     $question = $data['question'];
+    $id_user = $_SESSION['user_id'];
 
     // Memasukkan data baru ke dalam tabel users
-    $stmt = $conn->prepare("INSERT INTO question (name, soal) VALUES (?, ?)");
+    $stmt = $conn->prepare("INSERT INTO question (name, soal, id_user) VALUES (?, ?,?)");
     if ($stmt === false) {
         echo json_encode(['status' => 'error', 'message' => 'Prepare statement failed: ' . $conn->error]);
         exit;
     }
 
     // Bind parameter untuk query
-    $stmt->bind_param("ss", $nama, $question);
+    $stmt->bind_param("ssi", $nama, $question, $id_user);
 
     // Eksekusi query
     if ($stmt->execute()) {

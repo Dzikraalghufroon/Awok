@@ -170,6 +170,7 @@ const Profile = () => {
                         className={styles.inputquestion}
                         type="text"
                         id="name"
+                        placeholder="Add your question"
                         value={question}
                         onChange={(e) => setquestion(e.target.value)}
                         required
