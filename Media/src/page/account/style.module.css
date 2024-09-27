@@ -230,10 +230,22 @@
         width: 130%;
         left: -15%;
         height: 40%;
-        top: 40px;
+        top: -0px;
+    }
+    .sidebar{
+        height: 200px;
+        top: 300px;
+        margin-bottom: -100px;
     }
     .questionUser{
         width: 80%;
+    }
+    .image{
+        margin-top: -50px;
+    }
+    .info h2{
+        top: 20px;
+        right: -50px;
     }
 }
 @media screen and (min-width: 768px) {
@@ -242,7 +254,12 @@
         top: 5%;
     }
 }
+.info h2{
 
+    color: #000;
+    position: relative;
+    margin: 20px;
+}
 
 
 

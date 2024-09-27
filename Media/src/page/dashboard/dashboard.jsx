@@ -61,8 +61,8 @@ const Dashboard = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [hasMore]);
 
-    const handleUpload = (id_soal, question,name ,date,answer) => {
-        setCurrentEdit({ id_soal, question, name ,date,answer });
+    const handleUpload = (id_soal, question, name, date, answer) => {
+        setCurrentEdit({ id_soal, question, name, date, answer });
     };
 
     const handlePost = async (e) => {
@@ -106,6 +106,7 @@ const Dashboard = () => {
                                         onChange={(e) => setCurrentEdit({ ...currentEdit, answer: e.target.value })}
                                     />
                                 </li>
+
                                 <li>
                                     <button type="submit" onClick={(e) => handlePost(e)}>Post</button>
                                 </li>
@@ -115,10 +116,12 @@ const Dashboard = () => {
                                 <li>{item.name}</li>
                                 <li>{item.reg_date}</li>
                                 <li>{item.soal}</li>
+
+                                <li><a  onClick={() => navigate(`/result/${item.id}`)} className="link">See answer</a></li>
                                 <li>
                                     <button
                                         type="button"
-                                        onClick={() => handleUpload(item.id, item.soal,item.name, item.reg_date)}
+                                        onClick={() => handleUpload(item.id, item.soal, item.name, item.reg_date)}
                                     >
                                         Comment
                                     </button>
@@ -127,7 +130,7 @@ const Dashboard = () => {
                         )
                     ))
                 ) : (
-                    !loading && <p>No data available</p>
+                    !loading && <p className="emptyData">No data available</p>
                 )}
                 {loading && <p>Loading...</p>}
             </div>

@@ -5,7 +5,8 @@ import image1 from './image2.png'
 import { useNavigate } from 'react-router-dom';
 import Satu from "./home1.png"
 import Dua from "./profile.png"
-
+import Tiga from "./search.png"
+import Empat from "./setting.png"
 const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
@@ -27,8 +28,8 @@ const Sidebar = () => {
                 <ul>
                     <li><a onClick={() => navigate("/")}><img src={Satu} alt="" />Home</a></li>
                     <li><a onClick={() => navigate("/profile")}><img src={Dua} alt="" />Profile</a></li>
-                    <li><a onClick={() => navigate("/")}>Services</a></li>
-                    <li><a onClick={() => navigate("/")}>Contact</a></li>
+                    <li><a onClick={() => navigate("/")}><img src={Tiga} />Search</a></li>
+                    <li><a onClick={() => navigate("/")}><img src={Empat} />Setting</a></li>
                 </ul>
             </div>
         </div>

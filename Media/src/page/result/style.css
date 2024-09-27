@@ -18,8 +18,8 @@
     color: rgb(114, 105, 105); 
 }
 .result ul li:nth-child(2){
-    margin-top: 5px;
-    color: rgb(85, 75, 75);
+    font-size: 12px;
+    color: rgb(110, 110, 97);
     margin-bottom: 10px;
 }
 .result ul li:nth-child(3){
@@ -65,14 +65,21 @@
     }
 }
 .dataQuestion{
-    width: 80%;
+    width: 70%;
+    position: absolute;
+    top: 30px
 }
 .dataQuestion p:nth-child(1){
-    font-size: 10px;
+    font-size: 15px;
+    color: rgb(110, 110, 97);
+    margin-bottom: -10px;
+    ;
 }
 .dataQuestion p:nth-child(2){
-    font-size: 10px;
+    font-size: 12px;
+    color: rgb(110, 110, 97);
 }
 .dataQuestion p:nth-child(3){
+    margin-top: -5px;
     font-size: 17px;
 }

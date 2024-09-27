@@ -136,13 +136,14 @@
     display: block;
     padding: 10px 20px;
     position: relative;
+    width: 100%;
     left: -20px;
     font-size: 20px;
 }
 
 .sidebar ul li a:hover {
     padding: 10px 20px;
-    background-color: #575757;
+    background-color: #dbcdcd;
 }
 
 /* Tombol toggle untuk membuka sidebar */
