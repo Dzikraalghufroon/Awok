@@ -1,29 +1,24 @@
-import React from "react";
-import "./modal.css";
-import PropTypes from "prop-types";
+const upload = async (e) => {
+  e.preventDefault();
+  if (data.length > 0) {
+      const question = data[0].question;
+      const date = data[0].date;
+      const name = data[0].name;
 
-export default class Modal extends React.Component {
-  onClose = e => {
-    this.props.onClose && this.props.onClose(e);
-  };
-  render() {
-    if (!this.props.show) {
-      return null;
-    }
-    return (
-      <div class="modal" id="modal">
-        <h2>Modal Window</h2>
-        <div class="content">{this.props.children}</div>
-        <div class="actions">
-          <button class="toggle-button" onClick={this.onClose}>
-            close
-          </button>
-        </div>
-      </div>
-    );
+      try {
+          const response = await axios.post(
+              `${import.meta.env.VITE_SERVER}/api/dashboard/forum.php`,
+              formatUploadData(id_user, question, answer, name, date),
+              { withCredentials: true }
+          );
+
+          if (response.data.status === 'success') {
+              console.log('Data successfully updated');
+          } else {
+              console.error('Error updating data:', response.data.message);
+          }
+      } catch (error) {
+          console.error('Error updating data:', error);
+      }
   }
-}
-Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired
 };

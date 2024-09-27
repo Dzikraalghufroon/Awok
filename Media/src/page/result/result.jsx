@@ -13,9 +13,9 @@ const Result = () => {
     const [answer, setAnswer] = useState('');
     const navigate = useNavigate();
     const { soal } = useParams();
-    const id_user = soal; // Jika id_user adalah parameter soal
+    const id_user = soal;
 
-    // Redirect logic
+    // Logika redirect
     useEffect(() => {
         const fetchRedirect = async () => {
             try {
@@ -30,32 +30,32 @@ const Result = () => {
         fetchRedirect();
     }, [navigate]);
 
-    // Fetch data logic
+    // Siapkan SSE
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER}/api/forum/read_forum.php?question=${soal}`, { withCredentials: true });
-                setData(response.data);
+        const eventSource = new EventSource(`${import.meta.env.VITE_SERVER}/api/forum/read_forum.php?question=${soal}`);
+
+        eventSource.onmessage = (event) => {
+            const newData = JSON.parse(event.data);
+            if (Array.isArray(newData)) {
+                setData(prevData => [...prevData, ...newData]);
                 setLoading(false);
-            } catch (error) {
-                console.error('Error:', error);
-                setLoading(false);
+            } else {
+                console.error(newData.message);
             }
         };
-        fetchData();
+
+        eventSource.onerror = (error) => {
+            console.error('EventSource gagal:', error);
+            eventSource.close(); // Tutup koneksi saat terjadi kesalahan
+        };
+
+        return () => {
+            eventSource.close(); // Bersihkan koneksi saat komponen di-unmount
+        };
     }, [soal]);
 
-    // Format data sesuai dengan backend
-    const formatUploadData = (id_user, question, answer, name, date) => ({
-        id_soal: id_user, 
-        question: question,
-        answer: answer,
-        name: name,
-        date: date
-    });
-
     const upload = async (e) => {
-        // e.preventDefault();
+        e.preventDefault();
         if (data.length > 0) {
             const question = data[0].question;
             const date = data[0].date;
@@ -94,7 +94,6 @@ const Result = () => {
                     )}
                 </div>
 
-                {/* Tampilkan data lainnya kecuali item.question */}
                 {data.length > 0 ? (
                     data.map((item, index) => (
                         <ul key={index}>
@@ -104,21 +103,21 @@ const Result = () => {
                         </ul>
                     ))
                 ) : (
-                    !loading && <p>No data available</p>
+                    !loading && <p>Tidak ada data tersedia</p>
                 )}
 
-                {loading && <p>Loading...</p>}
+                {loading && <p>Memuat...</p>}
                 <form className={styles.question_form} onSubmit={upload}>
                     <input
                         className={styles.inputquestion}
                         type="text"
                         id="answer"
-                        placeholder="Add your answer"
+                        placeholder="Tambahkan jawaban Anda"
                         value={answer}
                         onChange={(e) => setAnswer(e.target.value)}
                         required
                     />
-                    <button className={styles.buttonquestion} type="submit">Submit Answer</button>
+                    <button className={styles.buttonquestion} type="submit">Kirim Jawaban</button>
                 </form>
             </div>
         </div>
