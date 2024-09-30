@@ -30,9 +30,16 @@ const Result = () => {
         fetchRedirect();
     }, [navigate]);
 
+    const formatUploadData = (id_user, question, answer, name, date) => ({
+        id_soal: id_user, 
+        question: question,
+        answer: answer,
+        name: name,
+        date: date
+    });
     // Siapkan SSE
     useEffect(() => {
-        const eventSource = new EventSource(`${import.meta.env.VITE_SERVER}/api/forum/read_forum.php?question=${soal}`);
+        const eventSource = new EventSource(`${import.meta.env.VITE_SERVER}/api/forum/read_forum.php?question=${soal}`,{withCredentials:true});
 
         eventSource.onmessage = (event) => {
             const newData = JSON.parse(event.data);
@@ -55,7 +62,7 @@ const Result = () => {
     }, [soal]);
 
     const upload = async (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         if (data.length > 0) {
             const question = data[0].question;
             const date = data[0].date;
@@ -106,7 +113,7 @@ const Result = () => {
                     !loading && <p>Tidak ada data tersedia</p>
                 )}
 
-                {loading && <p>Memuat...</p>}
+                {loading && <p>Memuat...</p>}<br/>
                 <form className={styles.question_form} onSubmit={upload}>
                     <input
                         className={styles.inputquestion}
